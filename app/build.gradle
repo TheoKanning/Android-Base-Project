@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "0.1"
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
@@ -37,6 +37,6 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportVersion"
     compile 'com.google.code.gson:gson:2.4'
     compile "com.google.dagger:dagger:$daggerVersion"
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
     compile 'net.danlew:android.joda:2.8.2'
 }

@@ -1,24 +1,32 @@
-package theo.base.ui.activity;
+package theo.base.ui.base;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import theo.base.R;
-import theo.base.ui.fragment.BaseFragment;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private static final String TAG = BaseActivity.class.getSimpleName();
+    public interface OnBackPressedListener {
+        boolean onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if(backPressEventConsumedByFragment()){
+            return;
+        }
+
+        super.onBackPressed();
+    }
 
     public void setFragment(BaseFragment fragment, boolean animate) {
         // First, get the current fragment. If there isn't a current fragment, then add the new
@@ -41,8 +49,6 @@ public class BaseActivity extends AppCompatActivity {
                 ft.commit();
             }
         }
-
-        getSupportActionBar().setTitle(fragment.getTitleResourceId());
     }
 
     public BaseFragment getCurrentFragment() {
@@ -53,13 +59,15 @@ public class BaseActivity extends AppCompatActivity {
         return getCurrentFragment().getClass().getCanonicalName();
     }
 
-    public void showMainActivity(boolean animate) {
-        Log.d(TAG, "showMainScreen()");
+    /**
+     * @return true if event is consumed by fragment
+     */
+    protected boolean backPressEventConsumedByFragment(){
+        BaseFragment currentFragment = getCurrentFragment();
+        if (currentFragment == null) {
+            return false;
+        }
 
-        // clear the backstack so we this becomes our top-most activity once the user is logged in
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        return currentFragment.onBackPressed();
     }
-
 }

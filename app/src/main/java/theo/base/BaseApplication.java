@@ -3,24 +3,32 @@ package theo.base;
 
 import android.app.Application;
 
+import javax.inject.Inject;
+
 import theo.base.dagger.BaseComponent;
-import theo.base.dagger.BaseModule;
-import theo.base.dagger.DaggerBaseComponent;
+import theo.base.dagger.BaseGraph;
 
 public class BaseApplication extends Application {
 
-    private BaseComponent component;
+    @Inject AppInitializer appInitializer;
+
+    private BaseGraph component;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        component = DaggerBaseComponent.builder()
-                .baseModule(new BaseModule(this))
-                .build();
+        buildComponentAndInject();
+
+        appInitializer.init(this);
+    }
+
+    private void buildComponentAndInject() {
+        component = BaseComponent.Initializer.init(this);
         component.inject(this);
     }
-    public BaseComponent getComponent() {
+
+    public BaseGraph getComponent() {
         return component;
     }
 }

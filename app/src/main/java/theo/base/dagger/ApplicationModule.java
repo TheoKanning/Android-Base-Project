@@ -5,11 +5,11 @@ import android.content.Context;
 import dagger.Module;
 
 @Module
-public class BaseModule {
+public class ApplicationModule {
 
     private Context context;
 
-    public BaseModule(Context context) {
+    public ApplicationModule(Context context) {
         this.context = context;
     }
 }

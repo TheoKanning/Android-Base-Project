@@ -7,9 +7,21 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = BaseModule.class)
-public interface BaseComponent {
-    //application
-    void inject(Application application);
+@Component(modules = {
+        ApplicationModule.class,
+        BuildVariantModule.class
+})
+public interface BaseComponent extends BaseGraph {
+
+    final class Initializer {
+        private Initializer() {
+            throw new AssertionError("No Instances.");
+        }
+
+        public static BaseGraph init(Application app) {
+            return DaggerBaseComponent.builder()
+                    .build();
+        }
+    }
 }
 

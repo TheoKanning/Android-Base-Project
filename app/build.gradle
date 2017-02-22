@@ -24,6 +24,7 @@ android {
 ext {
     supportVersion = '25.1.1'
     daggerVersion = '2.7'
+    leakCanaryVersion = '1.5'
 }
 
 dependencies {
@@ -34,6 +35,7 @@ dependencies {
     apt "com.google.dagger:dagger-compiler:$daggerVersion"
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
+    // icepick
     compile 'com.github.frankiesardo:icepick:2.3.6'
     apt 'com.github.frankiesardo:icepick-processor:2.3.6'
 
@@ -42,4 +44,11 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'net.danlew:android.joda:2.8.2'
+    compile 'com.jakewharton.timber:timber:4.5.1'
+
+    // leak canary
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    androidTestCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }

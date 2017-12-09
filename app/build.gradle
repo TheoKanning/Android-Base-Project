@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -22,6 +24,7 @@ android {
 
 repositories {
     google()
+    mavenCentral()
 }
 
 ext {
@@ -34,8 +37,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation "com.google.dagger:dagger:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
     implementation "com.android.support:appcompat-v7:$supportVersion"

@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "theo.base"
@@ -28,27 +27,23 @@ ext {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
 
-    compile "com.google.dagger:dagger:$daggerVersion"
-    apt "com.google.dagger:dagger-compiler:$daggerVersion"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
-    // icepick
-    compile 'com.github.frankiesardo:icepick:2.3.6'
-    apt 'com.github.frankiesardo:icepick-processor:2.3.6'
-
-    compile "com.android.support:appcompat-v7:$supportVersion"
-    compile "com.android.support:recyclerview-v7:$supportVersion"
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'net.danlew:android.joda:2.8.2'
-    compile 'com.jakewharton.timber:timber:4.5.1'
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
+    implementation 'com.google.code.gson:gson:2.4'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    implementation 'net.danlew:android.joda:2.8.2'
+    implementation 'com.jakewharton.timber:timber:4.5.1'
 
     // leak canary
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-    androidTestCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    androidTestImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
